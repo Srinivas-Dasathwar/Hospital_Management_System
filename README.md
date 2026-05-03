@@ -89,25 +89,3 @@ python manage.py createsuperuser
 * `static/` → CSS & JS
 
 ---
-
-## 📸 Screenshots
-
-(Add screenshots of your project here)
-
----
-
-## 🤝 Contributing
-
-Feel free to fork this repo and contribute.
-
----
-
-## 📄 License
-
-This project is for educational purposes.
-
----
-
-## 👨‍💻 Author
-
-**Srinivas Dasathwar**
