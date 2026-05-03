@@ -1,0 +1,76 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="row mt-4">
+    <div class="col-12">
+        <h2>Welcome, {{ user.first_name|default:user.username }}! ({{ role }})</h2>
+    </div>
+</div>
+
+{% if role == 'Admin' %}
+<div class="row mt-4">
+    <div class="col-md-4">
+        <div class="card bg-info text-white text-center p-3">
+            <h3>Total Patients</h3>
+            <h1>{{ total_patients }}</h1>
+        </div>
+    </div>
+    <div class="col-md-4">
+        <div class="card bg-warning text-white text-center p-3">
+            <h3>Total Doctors</h3>
+            <h1>{{ total_doctors }}</h1>
+        </div>
+    </div>
+    <div class="col-md-4">
+        <div class="card bg-danger text-white text-center p-3">
+            <h3>Total Appointments</h3>
+            <h1>{{ total_appointments }}</h1>
+        </div>
+    </div>
+</div>
+{% else %}
+<div class="row mt-4">
+    <div class="col-md-12">
+        <div class="card">
+            <div class="card-header bg-primary text-white">
+                <h5 class="mb-0">Recent Appointments</h5>
+            </div>
+            <div class="card-body">
+                <table class="table table-striped">
+                    <thead>
+                        <tr>
+                            <th>Date & Time</th>
+                            {% if role == 'Patient' %}<th>Doctor</th>{% else %}<th>Patient</th>{% endif %}
+                            <th>Status</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for appt in appointments %}
+                        <tr>
+                            <td>{{ appt.date }} {{ appt.time }}</td>
+                            {% if role == 'Patient' %}
+                                <td>Dr. {{ appt.doctor.user.first_name }} {{ appt.doctor.user.last_name }}</td>
+                            {% else %}
+                                <td>{{ appt.patient.user.first_name }} {{ appt.patient.user.last_name }}</td>
+                            {% endif %}
+                            <td>
+                                <span class="badge {% if appt.status == 'Completed' %}bg-success{% elif appt.status == 'Pending' %}bg-warning{% else %}bg-danger{% endif %}">
+                                    {{ appt.status }}
+                                </span>
+                            </td>
+                        </tr>
+                        {% empty %}
+                        <tr>
+                            <td colspan="3" class="text-center">No recent appointments found.</td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+                <a href="{% url 'appointments_list' %}" class="btn btn-secondary mt-2">View All</a>
+            </div>
+        </div>
+    </div>
+</div>
+{% endif %}
+
+{% endblock %}

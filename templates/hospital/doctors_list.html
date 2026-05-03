@@ -1,0 +1,27 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="row mt-4">
+    <div class="col-12">
+        <h3 class="mb-4">Available Doctors</h3>
+        <div class="row">
+            {% for doctor in doctors %}
+            <div class="col-md-4 mb-4">
+                <div class="card">
+                    <div class="card-body">
+                        <h5 class="card-title">Dr. {{ doctor.user.first_name }} {{ doctor.user.last_name }}</h5>
+                        <h6 class="card-subtitle mb-2 text-muted">{{ doctor.specialization }}</h6>
+                        <p class="card-text"><strong>Availability:</strong> {{ doctor.availability }}</p>
+                        <a href="{% url 'book_appointment' %}" class="btn btn-primary btn-sm">Book Appointment</a>
+                    </div>
+                </div>
+            </div>
+            {% empty %}
+            <div class="col-12">
+                <p>No doctors available at the moment.</p>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+</div>
+{% endblock %}

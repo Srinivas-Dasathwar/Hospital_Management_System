@@ -1,0 +1,24 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="row justify-content-center">
+    <div class="col-md-8">
+        <div class="card">
+            <div class="card-header bg-success text-white">
+                <h4 class="mb-0">{{ role }} Registration</h4>
+            </div>
+            <div class="card-body">
+                <form method="post">
+                    {% csrf_token %}
+                    <h5 class="mt-3">User Details</h5>
+                    {{ user_form.as_p }}
+                    <hr>
+                    <h5>{{ role }} Details</h5>
+                    {{ patient_form.as_p }}
+                    <button type="submit" class="btn btn-success w-100 mt-3">Register</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
